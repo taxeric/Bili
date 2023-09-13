@@ -40,6 +40,11 @@ dependencies {
 
     //coroutine
     val coroutine_version = "1.7.1"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
+
+    val okhttp_version = "4.10.0"
+    api(platform("com.squareup.okhttp3:okhttp-bom:$okhttp_version"))
+    api("com.squareup.okhttp3:okhttp")
+    api("com.squareup.okhttp3:logging-interceptor")
 }
