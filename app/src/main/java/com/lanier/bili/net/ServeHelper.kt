@@ -2,6 +2,7 @@ package com.lanier.bili.net
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.lanier.bili.BaseApp
 import com.lanier.lib_core.net.Serve
 import okhttp3.Request
 import okhttp3.Response
