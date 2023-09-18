@@ -12,7 +12,7 @@ import java.util.Map;
  * Date : 21-9-1
  * Describe :
  */
-public class CookieUtils {
+public class CookieUtil {
 
     private static final String TAG = "CookieUtils";
 
@@ -20,11 +20,11 @@ public class CookieUtils {
     public static final String SESSDATA = "SESSDATA";
 
     public static String getVmid(){
-        return SpUtils.mSharedPreferences.getString(VMID, "");
+        return SpUtil.sharedPreferences.getString(VMID, "");
     }
 
     public static String getSessdata(){
-        return SpUtils.mSharedPreferences.getString(SESSDATA, "");
+        return SpUtil.sharedPreferences.getString(SESSDATA, "");
     }
 
     public static void saveCookie(String url){
@@ -33,7 +33,7 @@ public class CookieUtils {
         Log.i("Cookies","Cookies = "+ cookieStr);
         Map<String,String> cookieMap = cookieToMap(cookieStr);
 
-        SpUtils.INSTANCE.saveMap(cookieMap);
+        SpUtil.INSTANCE.saveMap(cookieMap);
     }
 
     public static Map<String,String> cookieToMap(String value){
