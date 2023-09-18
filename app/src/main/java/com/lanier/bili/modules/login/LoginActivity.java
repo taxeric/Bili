@@ -1,4 +1,4 @@
-package com.lanier.bili.login;
+package com.lanier.bili.modules.login;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lanier.bili.R;
-import com.lanier.bili.utils.CookieUtils;
+import com.lanier.bili.utils.CookieUtil;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        CookieUtils.saveCookie("https://m.bilibili.com");
+        CookieUtil.saveCookie("https://m.bilibili.com");
     }
 }

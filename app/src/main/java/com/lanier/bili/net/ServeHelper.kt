@@ -2,7 +2,6 @@ package com.lanier.bili.net
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.lanier.bili.BaseApp
 import com.lanier.lib_core.net.Serve
 import okhttp3.Request
 import okhttp3.Response
@@ -23,7 +22,7 @@ object ServeHelper {
     suspend inline fun <reified T> sendRequest(
         req: Request
     ): T? {
-        val response = request(req)
+        val response = obtainResponse(req)
         val json = response.body?.string()
         if (!json.isNullOrEmpty()) {
             return fromJson(json)
@@ -31,7 +30,7 @@ object ServeHelper {
         return null
     }
 
-    suspend fun request(req: Request): Response {
+    suspend fun obtainResponse(req: Request): Response {
         return Serve.sendRequest(req)
     }
 }

@@ -43,6 +43,6 @@ class BiliRequest {
     }
 
     fun build(): Request {
-        return builder.build()
+        return builder.headers(headers.build()).build()
     }
 }

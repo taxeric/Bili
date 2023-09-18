@@ -2,8 +2,6 @@ package com.lanier.bili.apis
 
 import com.lanier.bili.models.*
 import com.lanier.bili.net.ServeHelper
-import okhttp3.FormBody
-import okhttp3.Request
 
 /**
  * Author: Turtledove
@@ -47,14 +45,10 @@ object BiliApis {
     suspend fun scanQRCodeForLogin(
         qrcode_key: String
     ): BiliBaseResponse<BiliQRCodeResultEntity> {
-        val body = FormBody.Builder()
-            .add("qrcode_key", qrcode_key)
-            .build()
         val req = BiliRequest()
-            .url("https://passport.bilibili.com/x/passport-login/web/qrcode/poll")
-            .post(body)
+            .url("https://passport.bilibili.com/x/passport-login/web/qrcode/poll?qrcode_key=$qrcode_key")
             .build()
-        val response = ServeHelper.request(req)
+        val response = ServeHelper.obtainResponse(req)
         val headers = response.headers
         val dataStr = response.body?.string()
         if (dataStr != null) {
