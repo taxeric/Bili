@@ -10,6 +10,8 @@ import com.lanier.bili.net.ServeHelper
  */
 object BiliApis {
 
+    var bili_cookies = ""
+
     /**
      * 获取盐值&密钥
      */
@@ -69,24 +71,47 @@ object BiliApis {
     /**
      * 首页推荐列表
      *
-     * @param SESSDATA 从登录的响应头获取
+     * @param merge 从登录的响应头获取
      */
     suspend fun recommendVideoList(
-        SESSDATA: String,
+        merge: String = bili_cookies,
         fresh_type: Int = 3,
         version: Int = 1,
         ps: Int = 10,
         fresh_idx: Int = 1,
         fresh_idx_1h: Int = 1
     ): BiliBaseResponse<BiliRecommendVideoEntity> {
-        if (SESSDATA.isEmpty()) {
-            return BiliBaseResponse.default()
+        val req = if (merge.isEmpty()) {
+            BiliRequest()
+                .url("https://api.bilibili.com/x/web-interface/wbi/index/top/feed/rcmd")
+                .build()
+        } else {
+            BiliRequest()
+                .url("https://api.bilibili.com/x/web-interface/wbi/index/top/feed/rcmd?fresh_type=$fresh_type&version=$version&ps=$ps&fresh_idx=$fresh_idx&fresh_idx_1h=$fresh_idx_1h")
+                .addHeader("Cookie", merge)
+                .build()
         }
-        val req = BiliRequest()
-            .url("https://api.bilibili.com/x/web-interface/index/top/rcmd?fresh_type=$fresh_type&version=$version&ps=$ps&fresh_idx=$fresh_idx&fresh_idx_1h=$fresh_idx_1h")
-            .addHeader("Cookie", SESSDATA)
-            .build()
         val data = ServeHelper.sendRequest<BiliBaseResponse<BiliRecommendVideoEntity>>(req)
+        if (data != null) {
+            return data
+        }
+        return BiliBaseResponse.default()
+    }
+
+    /**
+     * 视频详细信息(缩略版)
+     */
+    suspend fun videoDetails(
+        merge: String = bili_cookies,
+        bvid: String,
+    ): BiliBaseResponse<BiliVideoDetailsEntity> {
+        val req = BiliRequest().apply {
+            url("https://api.bilibili.com/x/web-interface/view?bvid=$bvid")
+            if (merge.isNotEmpty()) {
+                addHeader("Cookie", merge)
+            }
+        }.build()
+        val data = ServeHelper.sendRequest<BiliBaseResponse<BiliVideoDetailsEntity>>(req)
         if (data != null) {
             return data
         }
