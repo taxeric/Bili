@@ -37,7 +37,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -49,4 +49,13 @@ dependencies {
 
     val jackson_version = "2.15.2"
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+
+    //vm & lifecycle
+    val lifecycle_version = "2.6.2"
+    val act_ktx_version = "1.7.2"
+    val fra_ktx_version = "1.6.1"
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.activity:activity-ktx:$act_ktx_version")
+    implementation("androidx.fragment:fragment-ktx:$fra_ktx_version")
 }
