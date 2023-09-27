@@ -10,6 +10,8 @@ import com.lanier.bili.net.ServeHelper
  */
 object BiliApis {
 
+    const val CODE_SUCCESS = 0
+
     var bili_cookies = ""
 
     /**
