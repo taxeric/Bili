@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.lanier.bili.R;
 import com.lanier.bili.utils.CookieUtil;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginAct extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

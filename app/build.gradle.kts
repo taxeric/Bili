@@ -38,6 +38,7 @@ android {
         named("main") {
             res.srcDirs(
                 "src/main/res/layout/login",
+                "src/main/res/layout/main",
                 "src/main/res/layout",
                 "src/main/res",
             )

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Bili"
         tools:targetApi="31">
         <activity
-            android:name=".modules.main.MainActivity"
+            android:name=".modules.main.MainAct"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".modules.login.LoginActivity"
+        <activity android:name=".modules.login.LoginAct"
             android:exported="false"/>
     </application>
 
