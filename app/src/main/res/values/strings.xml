@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Bili</string>
 
+    <string name="refresh">换一换</string>
+
     <string name="menu_title_home">主页</string>
     <string name="menu_title_mine">我的</string>
 </resources>
