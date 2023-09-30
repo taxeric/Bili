@@ -10,9 +10,11 @@ import com.lanier.bili.ext.index
  * on 2023/9/30
  */
 class FragmentHelper(
-    var showIndex: Int = 0,
+    private val resId: Int,
     private val fragmentManager: FragmentManager
 ) {
+
+    private var showIndex = -1
 
     private val _fragments = mutableListOf<SwitchFragment>()
 
@@ -38,11 +40,16 @@ class FragmentHelper(
         }
         fragmentManager.commit {
             if (showIndex != index) {
-                hide(getFraByIndex(showIndex))
-                if (getFraByIndex(index).isAdded) {
-                    show(getFraByIndex(index))
+                if (showIndex != -1) {
+                    hide(getFraByIndex(showIndex))
+                }
+                val needShowFragment = getFraByIndex(index)
+                if (needShowFragment.isAdded) {
+                    show(needShowFragment)
                 } else {
-                    add(getFraByIndex(index), getTagByIndex(index))
+                    val tag = getTagByIndex(index)
+                    add(resId, needShowFragment, tag)
+                    show(needShowFragment)
                 }
                 showIndex = index
             }

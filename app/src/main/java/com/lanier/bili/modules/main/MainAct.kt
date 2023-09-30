@@ -35,10 +35,10 @@ class MainAct : AppCompatActivity() {
             )
         )
 
-        fragmentHelper = FragmentHelper(showIndex = 0, fragmentManager = supportFragmentManager)
+        fragmentHelper = FragmentHelper(R.id.frameLayout, fragmentManager = supportFragmentManager)
 
         fragmentHelper.setFragments(fragments)
-        fragmentHelper.switchFra(fragmentHelper.showIndex)
+        fragmentHelper.switchFra(0)
 
         btmNavigator.setOnItemSelectedListener {
             when (it.itemId) {
