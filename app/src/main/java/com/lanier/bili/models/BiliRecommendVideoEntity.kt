@@ -38,7 +38,7 @@ data class BiliRecommendVideoItem(
     val pic_4_3: String = "",
     val pos: Int = 0,
     val pubdate: Int = 0,
-    val rcmd_reason: BiliRecommendVideoRcmdReason = BiliRecommendVideoRcmdReason(),
+    val rcmd_reason: BiliRecommendVideoRcmdReason? = BiliRecommendVideoRcmdReason(),
     val room_info: Any? = Any(),
     val show_info: Int = 0,
     val stat: BiliRecommendVideoStat = BiliRecommendVideoStat(),

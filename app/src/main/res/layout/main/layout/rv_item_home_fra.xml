@@ -20,6 +20,7 @@
         <TextView
             android:id="@+id/tvTitle"
             android:textColor="#3F51B5"
+            android:maxLines="2"
             android:gravity="start"
             android:padding="8dp"
             android:layout_width="match_parent"

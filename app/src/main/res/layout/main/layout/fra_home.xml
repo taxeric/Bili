@@ -11,7 +11,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatActionButton"
-        android:src="@drawable/baseline_person_24"
+        android:src="@drawable/baseline_refresh_24"
         android:contentDescription="@string/refresh"
         android:layout_margin="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
