@@ -3,10 +3,13 @@ package com.lanier.bili.modules.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lanier.bili.apis.BiliApis
+import com.lanier.bili.utils.CookieHelper
+import com.lanier.bili.utils.SpUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.Headers
 
 /**
  * Created by 幻弦让叶
@@ -18,6 +21,7 @@ class LoginVM: ViewModel() {
     val qrUrl: StateFlow<String> = _qrUrl.asStateFlow()
     
     private var qrKey = ""
+    private var headers: Headers? = null
     
     fun requestQRCode() {
         viewModelScope.launch { 
@@ -44,6 +48,7 @@ class LoginVM: ViewModel() {
             if (data.code == BiliApis.CODE_SUCCESS) {
                 data.data?.let {
                     if (it.code == BiliApis.CODE_SUCCESS) {
+                        headers = it.headers
                         success.invoke()
                     } else {
                         err.invoke(it.message)
@@ -51,5 +56,18 @@ class LoginVM: ViewModel() {
                 }
             }
         }
+    }
+
+    fun saveCookies(
+        applied: () -> Unit
+    ) {
+        CookieHelper.obtainCookies(
+            headers = headers,
+            onCompleted = { keys, values, merge ->
+                SpUtil.put(keys, values)
+                SpUtil.put(CookieHelper.merge, merge)
+                applied.invoke()
+            }
+        )
     }
 }
