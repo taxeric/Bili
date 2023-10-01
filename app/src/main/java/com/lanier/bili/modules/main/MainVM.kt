@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lanier.bili.apis.BiliApis
 import com.lanier.bili.models.BiliRecommendVideoItem
+import com.lanier.bili.models.BiliUserInfoEntity
 import com.lanier.bili.utils.CookieHelper
 import com.lanier.bili.utils.SpUtil
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +21,14 @@ class MainVM: ViewModel() {
     private val _recommendVideos = MutableStateFlow<List<BiliRecommendVideoItem>>(emptyList())
     val recommendVideos: StateFlow<List<BiliRecommendVideoItem>> = _recommendVideos.asStateFlow()
 
+    private val _userCardInfo = MutableStateFlow(BiliUserInfoEntity())
+    val userCardInfo: StateFlow<BiliUserInfoEntity> = _userCardInfo.asStateFlow()
+
     init {
         val biliCookies = SpUtil.getString(CookieHelper.merge)
+        val bmid = SpUtil.getString(CookieHelper.DedeUserID)
         BiliApis.bili_cookies = biliCookies
+        BiliApis.bmid = bmid
     }
 
     fun getRecommendVideos() {
@@ -38,6 +44,12 @@ class MainVM: ViewModel() {
 
     fun getMineInfo() {
         viewModelScope.launch {
+            val data = BiliApis.obtainUserCardInfo()
+            if (data.code == BiliApis.CODE_SUCCESS) {
+                data.data?.let {
+                    _userCardInfo.tryEmit(it)
+                }
+            }
         }
     }
 }

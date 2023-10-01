@@ -13,6 +13,7 @@ object BiliApis {
     const val CODE_SUCCESS = 0
 
     var bili_cookies = ""
+    var bmid = ""
 
     /**
      * 获取盐值&密钥
@@ -68,6 +69,22 @@ object BiliApis {
             return BiliBaseResponse.default()
         }
         return BiliBaseResponse.default()
+    }
+
+    /**
+     * 用户卡片信息
+     */
+    suspend fun obtainUserCardInfo(
+        mid: String = bmid,
+        photo: Boolean = true,
+        merge: String = bili_cookies,
+    ): BiliBaseResponse<BiliUserInfoEntity> {
+        val req = BiliRequest()
+            .url("https://api.bilibili.com/x/web-interface/card?mid=$mid&photo=$photo")
+            .addHeader("Cookie", merge)
+            .build()
+        val data = ServeHelper.sendRequest<BiliBaseResponse<BiliUserInfoEntity>>(req)
+        return data?: BiliBaseResponse.default()
     }
 
     /**

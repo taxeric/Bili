@@ -20,6 +20,11 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:id="@+id/tvFans"
             android:text="粉丝数"
             android:layout_width="match_parent"

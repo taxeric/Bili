@@ -3,11 +3,16 @@ package com.lanier.bili.modules.main.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import coil.load
 import com.google.android.material.imageview.ShapeableImageView
 import com.lanier.bili.R
 import com.lanier.bili.base.BaseFra
+import com.lanier.bili.ext.collect
 import com.lanier.bili.ext.start
 import com.lanier.bili.modules.login.LoginAct2
+import com.lanier.bili.modules.main.MainVM
 
 /**
  * Created by 幻弦让叶
@@ -29,13 +34,32 @@ class MineFra private constructor(
 
     private lateinit var btnLogin: Button
     private lateinit var ivAvatar: ShapeableImageView
+    private lateinit var tvUsername: TextView
+    private lateinit var tvFans: TextView
+    private lateinit var tvFollowers: TextView
+
+    private val vm by activityViewModels<MainVM>()
 
     override fun initView(view: View) {
         btnLogin = view.findViewById(R.id.btnLogin)
         ivAvatar = view.findViewById(R.id.ivAvatar)
+        tvUsername = view.findViewById(R.id.tvUsername)
+        tvFans = view.findViewById(R.id.tvFans)
+        tvFollowers = view.findViewById(R.id.tvFollowers)
 
         btnLogin.setOnClickListener {
             requireContext().start<LoginAct2>()
         }
+
+        collect(vm.userCardInfo) { user ->
+            ivAvatar.load(user.card.face)
+            tvUsername.text = user.card.name
+            tvFans.text = "粉丝数: ${user.card.fans}"
+            tvFollowers.text = "关注数: ${user.card.attention}"
+        }
+    }
+
+    override fun initData() {
+        vm.getMineInfo()
     }
 }
