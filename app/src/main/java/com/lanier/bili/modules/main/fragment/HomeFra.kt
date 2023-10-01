@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lanier.bili.R
 import com.lanier.bili.base.BaseFra
@@ -46,15 +47,18 @@ class HomeFra private constructor(
         }
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         recyclerView.adapter = mAdapter
+        recyclerView.addItemDecoration(MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         refreshBtn.setOnClickListener {
             vm.getRecommendVideos()
         }
-    }
 
-    override fun initData() {
         collect(vm.recommendVideos) {
             mAdapter.data = it
         }
+    }
+
+    override fun initData() {
+        vm.getRecommendVideos()
     }
 }
