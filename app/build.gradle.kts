@@ -75,4 +75,8 @@ dependencies {
     //zxing
     val zxing_version = "3.5.2"
     implementation("com.google.zxing:core:$zxing_version")
+
+    //coil: pic loader
+    val coil_version = "2.4.0"
+    implementation("io.coil-kt:coil:$coil_version")
 }

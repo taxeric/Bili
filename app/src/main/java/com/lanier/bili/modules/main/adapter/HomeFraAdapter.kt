@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.google.android.material.imageview.ShapeableImageView
 import com.lanier.bili.R
 import com.lanier.bili.models.BiliRecommendVideoItem
@@ -52,8 +53,11 @@ class HomeFraViewHolder(
 
     val ivPic = itemView.findViewById<ShapeableImageView>(R.id.ivPic)
     val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+    val tvUsername = itemView.findViewById<TextView>(R.id.tvUsername)
 
     internal fun bind(model: BiliRecommendVideoItem) {
+        ivPic.load(model.pic)
         tvTitle.text = model.title
+        tvUsername.text = model.owner.name
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="240dp"
     app:cardCornerRadius="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -13,6 +13,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivPic"
             android:src="#EFEFEF"
+            android:scaleType="fitXY"
             app:shapeAppearance="@style/CircleStyleTop8Dp"
             android:layout_width="match_parent"
             android:layout_height="140dp"/>
@@ -23,6 +24,15 @@
             android:maxLines="2"
             android:gravity="start"
             android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"/>
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:textSize="12sp"
+            android:textColor="#6D82F3"
+            android:paddingHorizontal="8dp"
+            android:gravity="center_vertical|end"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
