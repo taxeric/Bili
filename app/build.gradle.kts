@@ -56,6 +56,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+
     implementation(project(":lib_core"))
 
     val jackson_version = "2.15.2"
@@ -69,4 +71,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.activity:activity-ktx:$act_ktx_version")
     implementation("androidx.fragment:fragment-ktx:$fra_ktx_version")
+
+    //zxing
+    val zxing_version = "3.5.2"
+    implementation("com.google.zxing:core:$zxing_version")
 }
