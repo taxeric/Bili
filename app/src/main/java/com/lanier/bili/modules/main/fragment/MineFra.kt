@@ -35,6 +35,8 @@ class MineFra private constructor(
     private lateinit var btnLogin: Button
     private lateinit var ivAvatar: ShapeableImageView
     private lateinit var tvUsername: TextView
+    private lateinit var tvDesc: TextView
+    private lateinit var tvMore: TextView
     private lateinit var tvFans: TextView
     private lateinit var tvFollowers: TextView
 
@@ -44,16 +46,21 @@ class MineFra private constructor(
         btnLogin = view.findViewById(R.id.btnLogin)
         ivAvatar = view.findViewById(R.id.ivAvatar)
         tvUsername = view.findViewById(R.id.tvUsername)
+        tvDesc = view.findViewById(R.id.tvDesc)
+        tvMore = view.findViewById(R.id.tvMore)
         tvFans = view.findViewById(R.id.tvFans)
         tvFollowers = view.findViewById(R.id.tvFollowers)
 
         btnLogin.setOnClickListener {
             requireContext().start<LoginAct2>()
         }
+        tvMore.setOnClickListener {
+        }
 
         collect(vm.userCardInfo) { user ->
             ivAvatar.load(user.card.face)
             tvUsername.text = user.card.name
+            tvDesc.text = user.card.description
             tvFans.text = "粉丝数: ${user.card.fans}"
             tvFollowers.text = "关注数: ${user.card.attention}"
         }
