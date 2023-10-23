@@ -3,8 +3,12 @@ package com.lanier.bili.modules.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lanier.bili.apis.BiliApis
+import com.lanier.bili.ext.collect
 import com.lanier.bili.models.BiliRecommendVideoItem
 import com.lanier.bili.models.BiliUserInfoEntity
+import com.lanier.bili.state.login
+import com.lanier.bili.state.loginState
+import com.lanier.bili.state.unlogin
 import com.lanier.bili.utils.CookieHelper
 import com.lanier.bili.utils.SpUtil
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +33,24 @@ class MainVM: ViewModel() {
         val bmid = SpUtil.getString(CookieHelper.DedeUserID)
         BiliApis.bili_cookies = biliCookies
         BiliApis.bmid = bmid
+
+        if (biliCookies.isEmpty()) {
+            unlogin()
+        } else {
+            login()
+        }
+
+        viewModelScope.launch {
+            collect(SpUtil.spChangeKey) {
+                if (it.isNotEmpty()) {
+                    if (it == CookieHelper.merge) {
+                        if (SpUtil.getString(it).isEmpty()) {
+                            getRecommendVideos()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun getRecommendVideos() {
@@ -50,6 +72,13 @@ class MainVM: ViewModel() {
                     _userCardInfo.tryEmit(it)
                 }
             }
+        }
+    }
+
+    fun exitLogin() {
+        viewModelScope.launch {
+            SpUtil.put(CookieHelper.merge, "")
+            unlogin()
         }
     }
 }

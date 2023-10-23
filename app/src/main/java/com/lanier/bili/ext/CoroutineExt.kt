@@ -5,6 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 /**
@@ -16,7 +18,7 @@ fun <T> LifecycleOwner.collect(
     block: suspend (T) -> Unit,
 ) {
     lifecycleScope.launch {
-        flow.collect {
+        collect(flow) {
             block.invoke(it)
         }
     }
@@ -28,9 +30,18 @@ fun <T> LifecycleOwner.collectWhenStarted(
 ) {
     lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collect {
+            collect(flow) {
                 block.invoke(it)
             }
         }
+    }
+}
+
+suspend fun <T> collect(
+    flow: Flow<T>,
+    block: suspend (T) -> Unit
+) {
+    flow.collect {
+        block.invoke(it)
     }
 }

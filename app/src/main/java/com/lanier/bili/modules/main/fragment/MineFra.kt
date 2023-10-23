@@ -10,9 +10,14 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.lanier.bili.R
 import com.lanier.bili.base.BaseFra
 import com.lanier.bili.ext.collect
+import com.lanier.bili.ext.gone
+import com.lanier.bili.ext.invisible
 import com.lanier.bili.ext.start
+import com.lanier.bili.ext.visible
 import com.lanier.bili.modules.login.LoginAct2
 import com.lanier.bili.modules.main.MainVM
+import com.lanier.bili.state.LoginState
+import com.lanier.bili.state.loginState
 
 /**
  * Created by 幻弦让叶
@@ -33,6 +38,7 @@ class MineFra private constructor(
     }
 
     private lateinit var btnLogin: Button
+    private lateinit var btnExitLogin: Button
     private lateinit var ivAvatar: ShapeableImageView
     private lateinit var tvUsername: TextView
     private lateinit var tvDesc: TextView
@@ -44,6 +50,7 @@ class MineFra private constructor(
 
     override fun initView(view: View) {
         btnLogin = view.findViewById(R.id.btnLogin)
+        btnExitLogin = view.findViewById(R.id.btnExitLogin)
         ivAvatar = view.findViewById(R.id.ivAvatar)
         tvUsername = view.findViewById(R.id.tvUsername)
         tvDesc = view.findViewById(R.id.tvDesc)
@@ -54,6 +61,9 @@ class MineFra private constructor(
         btnLogin.setOnClickListener {
             requireContext().start<LoginAct2>()
         }
+        btnExitLogin.setOnClickListener {
+            vm.exitLogin()
+        }
         tvMore.setOnClickListener {
         }
 
@@ -63,6 +73,16 @@ class MineFra private constructor(
             tvDesc.text = user.card.description
             tvFans.text = "粉丝数: ${user.card.fans}"
             tvFollowers.text = "关注数: ${user.card.attention}"
+        }
+
+        collect(loginState) {
+            if (it == LoginState.Login) {
+                btnLogin.gone()
+                btnExitLogin.visible()
+            } else if (it == LoginState.Unlogin) {
+                btnLogin.visible()
+                btnExitLogin.invisible()
+            }
         }
     }
 
