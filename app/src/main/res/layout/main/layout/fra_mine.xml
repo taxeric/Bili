@@ -129,8 +129,20 @@
     <Button
         android:id="@+id/btnLogin"
         android:text="登录"
+        android:visibility="gone"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/layoutBaseInfo3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnExitLogin"
+        android:text="退出登录"
+        android:visibility="invisible"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="256dp"
