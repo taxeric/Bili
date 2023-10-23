@@ -3,15 +3,22 @@ package com.lanier.bili.utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 object SpUtil {
 
     private const val FILE_NAME = "Bili_share_data"
 
-    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val _innerSPChangeListener = MutableStateFlow("")
+    val spChangeKey: StateFlow<String> = _innerSPChangeListener.asStateFlow()
 
     fun init(context: Context) {
         sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(localDatasetChangedListener)
     }
 
     fun put(key: String, value: Any) {
@@ -91,4 +98,9 @@ object SpUtil {
             }
         }
     }
+
+    private val localDatasetChangedListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            _innerSPChangeListener.tryEmit(key)
+        }
 }
